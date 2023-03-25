@@ -1,6 +1,5 @@
-import 'package:super_heroes_landing/models/character/thumbnail.dart';
-import 'package:super_heroes_landing/models/character/urls.dart';
-
+import 'package:super_heroes_landing/models/thumbnail.dart';
+import 'package:super_heroes_landing/models/urls.dart';
 import 'comics.dart';
 
 class Results {
