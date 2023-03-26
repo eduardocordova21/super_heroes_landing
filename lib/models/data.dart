@@ -1,4 +1,4 @@
-import 'package:super_heroes_landing/models/character/results.dart';
+import 'package:super_heroes_landing/models/results.dart';
 
 class Data {
   String? offset;
