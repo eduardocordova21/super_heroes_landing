@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:super_heroes_landing/configurations/configuration.dart';
-import '../models/character/character.dart';
+import '../models/character.dart';
 
 class CharacterRepository {
   Future<List<Character>> fetchCharacters() async {
