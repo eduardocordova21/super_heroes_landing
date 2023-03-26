@@ -12,7 +12,10 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Super Hero Landing"),
+        title: const Text(
+          "Super Hero Landing",
+          style: TextStyle(fontFamily: "Quantico"),
+        ),
         centerTitle: true,
       ),
       body: const Center(),
