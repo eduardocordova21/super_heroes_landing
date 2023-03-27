@@ -1,30 +1,24 @@
-import 'data.dart';
+import 'response_data.dart';
 
-class Character {
-  String? code;
-  String? status;
-  String? copyright;
-  String? attributionText;
-  String? attributionHTML;
-  Data? data;
-  String? etag;
+class Response {
+  late int code;
+  late String status;
+  late String copyright;
+  late String attributionText;
+  late String attributionHTML;
+  late ResponseData requestdata;
+  late String etag;
 
-  Character(
-      {this.code,
-      this.status,
-      this.copyright,
-      this.attributionText,
-      this.attributionHTML,
-      this.data,
-      this.etag});
+  Response(this.code, this.status, this.copyright, this.attributionText,
+      this.attributionHTML, this.requestdata, this.etag);
 
-  Character.fromJson(Map<String, dynamic> json) {
+  Response.fromJson(Map<String, dynamic> json) {
     code = json['code'];
     status = json['status'];
     copyright = json['copyright'];
     attributionText = json['attributionText'];
     attributionHTML = json['attributionHTML'];
-    data = json['data'] != null ? Data.fromJson(json['data']) : null;
+    requestdata = json['data'] = ResponseData.fromJson(json['data']);
     etag = json['etag'];
   }
 
@@ -35,9 +29,7 @@ class Character {
     data['copyright'] = copyright;
     data['attributionText'] = attributionText;
     data['attributionHTML'] = attributionHTML;
-    if (this.data != null) {
-      data['data'] = this.data!.toJson();
-    }
+    data['data'] = requestdata!.toJson();
     data['etag'] = etag;
     return data;
   }
