@@ -1,8 +1,8 @@
 class Thumbnail {
-  String? path;
-  String? extension;
+  late String path;
+  late String extension;
 
-  Thumbnail({this.path, this.extension});
+  Thumbnail(this.path, this.extension);
 
   Thumbnail.fromJson(Map<String, dynamic> json) {
     path = json['path'];

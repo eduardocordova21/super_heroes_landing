@@ -1,21 +1,24 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:super_heroes_landing/configurations/configuration.dart';
-import '../models/character.dart';
+import 'package:super_heroes_landing/models/results.dart';
+import '../configurations/endpoints.dart';
+import '../models/response.dart';
 
 class CharacterRepository {
-  Future<List<Character>> fetchCharacters() async {
-    final response = await http.get(Uri.parse("${Configuration.getApiUrl()}/v1/public/characters"));
 
-    if (response.statusCode == 200) {
-      List<dynamic> objectsList = jsonDecode(response.body);
-      List<Character> charactersList = [];
+  late Configuration _configuration;
 
-      for (var character in objectsList) {
-        charactersList.add(Character.fromJson(character));
-      }
+  CharacterRepository(){
+    _configuration =  Configuration();
+  }
 
-      return charactersList;
+  Future<Response> fetchCharacters() async {
+    final apiResponse = await http.get(_configuration.getUri(Endpoint.characters.name));
+
+    if (apiResponse.statusCode == 200) {
+      var responseObject = Response.fromJson(jsonDecode(apiResponse.body));
+      return responseObject;
     } else {
       throw Exception("RUN BITCH, RUUUUUUN!");
     }

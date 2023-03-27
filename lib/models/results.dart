@@ -3,20 +3,20 @@ import 'package:super_heroes_landing/models/urls.dart';
 import 'comics.dart';
 
 class Results {
-  String? id;
-  String? name;
-  String? description;
-  String? modified;
-  String? resourceURI;
-  List<Urls>? urls;
-  Thumbnail? thumbnail;
-  Comics? comics;
-  Comics? stories;
-  Comics? events;
-  Comics? series;
+  late int id;
+  late String name;
+  late String description;
+  late String modified;
+  late String resourceURI;
+  late List<Urls> urls;
+  late Thumbnail thumbnail;
+  late Comics comics;
+  late Comics stories;
+  late Comics events;
+  late Comics series;
 
   Results(
-      {this.id,
+      this.id,
       this.name,
       this.description,
       this.modified,
@@ -26,7 +26,7 @@ class Results {
       this.comics,
       this.stories,
       this.events,
-      this.series});
+      this.series);
 
   Results.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -40,13 +40,11 @@ class Results {
         urls!.add(Urls.fromJson(v));
       });
     }
-    thumbnail = json['thumbnail'] != null
-        ? Thumbnail.fromJson(json['thumbnail'])
-        : null;
-    comics = json['comics'] != null ? Comics.fromJson(json['comics']) : null;
-    stories = json['stories'] != null ? Comics.fromJson(json['stories']) : null;
-    events = json['events'] != null ? Comics.fromJson(json['events']) : null;
-    series = json['series'] != null ? Comics.fromJson(json['series']) : null;
+    thumbnail = Thumbnail.fromJson(json['thumbnail']);
+    comics = Comics.fromJson(json['comics']);
+    stories = Comics.fromJson(json['stories']);
+    events = Comics.fromJson(json['events']);
+    series = Comics.fromJson(json['series']);
   }
 
   Map<String, dynamic> toJson() {
@@ -56,24 +54,12 @@ class Results {
     data['description'] = description;
     data['modified'] = modified;
     data['resourceURI'] = resourceURI;
-    if (urls != null) {
-      data['urls'] = urls!.map((v) => v.toJson()).toList();
-    }
-    if (thumbnail != null) {
-      data['thumbnail'] = thumbnail!.toJson();
-    }
-    if (comics != null) {
-      data['comics'] = comics!.toJson();
-    }
-    if (stories != null) {
-      data['stories'] = stories!.toJson();
-    }
-    if (events != null) {
-      data['events'] = events!.toJson();
-    }
-    if (series != null) {
-      data['series'] = series!.toJson();
-    }
+    data['urls'] = urls!.map((v) => v.toJson()).toList();
+    data['thumbnail'] = thumbnail!.toJson();
+    data['comics'] = comics!.toJson();
+    data['stories'] = stories!.toJson();
+    data['events'] = events!.toJson();
+    data['series'] = series!.toJson();
     return data;
   }
 }

@@ -1,12 +1,12 @@
 import 'items.dart';
 
 class Comics {
-  String? available;
-  String? returned;
-  String? collectionURI;
-  List<Items>? items;
+  late int available;
+  late int returned;
+  late String collectionURI;
+  late List<Items> items;
 
-  Comics({this.available, this.returned, this.collectionURI, this.items});
+  Comics(this.available, this.returned, this.collectionURI, this.items);
 
   Comics.fromJson(Map<String, dynamic> json) {
     available = json['available'];
