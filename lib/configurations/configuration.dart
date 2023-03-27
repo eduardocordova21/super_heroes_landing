@@ -21,18 +21,19 @@ class Configuration {
     return hash;
   }
 
-  Map<String, dynamic> _getQueryParameters() {
+  Map<String, dynamic> _getQueryParameters(int offset) {
     final params = {
       "ts": _timestamp.toString(),
       "apikey": _apiPublicKey,
       "hash": _getHash(),
-      "limit": 100.toString(),
+      "limit": 25.toString(),
+      "offset": offset.toString(),
     };
 
     return params;
   }
 
-  Uri getUri(String endpoint) {
-    return Uri.https(_apiDomain, _apiPath + endpoint, _getQueryParameters());
+  Uri getUri(String endpoint, int offset) {
+    return Uri.https(_apiDomain, _apiPath + endpoint, _getQueryParameters(offset));
   }
 }

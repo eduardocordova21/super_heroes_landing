@@ -13,8 +13,8 @@ class CharacterRepository {
     _configuration =  Configuration();
   }
 
-  Future<Response> fetchCharacters() async {
-    final apiResponse = await http.get(_configuration.getUri(Endpoint.characters.name));
+  Future<Response> fetchCharacters([int offset = 0]) async {
+    final apiResponse = await http.get(_configuration.getUri(Endpoint.characters.name, offset));
 
     if (apiResponse.statusCode == 200) {
       var responseObject = Response.fromJson(jsonDecode(apiResponse.body));
