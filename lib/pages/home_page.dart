@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:super_heroes_landing/widgets/vertical_list_view.dart';
+import 'package:super_heroes_landing/widgets/vertical_list_view/vertical_list_view.dart';
 
 import '../models/results.dart';
 import '../repository/character_repository.dart';
