@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:super_heroes_landing/pages/home_page.dart';
+import 'package:super_heroes_landing/views/home_view.dart';
 
 import 'configurations/colors.dart';
 import 'configurations/routes.dart';
@@ -21,7 +21,7 @@ class MyApp extends StatelessWidget {
       ),
       initialRoute: NavigationRoute.home.name,
       routes: {
-        NavigationRoute.home.name: (context) => const HomePage(),
+        NavigationRoute.home.name: (context) => const HomeView(),
       },
     );
   }

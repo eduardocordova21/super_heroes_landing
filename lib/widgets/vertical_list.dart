@@ -1,46 +1,48 @@
 import 'package:flutter/material.dart';
+import 'package:super_heroes_landing/controllers/characters_controller.dart';
+import '../configurations/colors.dart';
+import '../models/results.dart';
 
-import '../../configurations/colors.dart';
-import '../../models/results.dart';
-import '../../repository/character_repository.dart';
-
-class VerticalListView extends StatefulWidget {
-  const VerticalListView({Key? key}) : super(key: key);
+class VerticalList extends StatefulWidget {
+  const VerticalList({Key? key}) : super(key: key);
 
   @override
-  State<VerticalListView> createState() => _VerticalListViewState();
+  State<VerticalList> createState() => _VerticalListState();
 }
 
-class _VerticalListViewState extends State<VerticalListView> {
-  final scrollController = ScrollController();
+class _VerticalListState extends State<VerticalList> {
+  final CharactersController _charactersController = CharactersController();
+  final _scrollController = ScrollController();
 
-  late List<Results> charactersList = [];
-  bool hasMoreCharacters = true;
-  int totalCharacters = 0;
-  int offset = 25;
+  late final List<Results> _charactersList = [];
+
+  bool _hasMoreCharacters = true;
+  int _totalCharacters = 0;
+  int _offset = 25;
 
   @override
   void initState() {
     super.initState();
 
-    CharacterRepository().fetchCharacters().then((response) => {
-          charactersList.addAll(response.requestdata.results),
-          totalCharacters = response.requestdata.total
+    _charactersController.fetchCharacters().then((response) => {
+          _charactersList.addAll(response.requestdata.results),
+          _charactersList.removeRange(0, 5),
+          _totalCharacters = response.requestdata.total
         });
 
-    scrollController.addListener(() {
-      if (scrollController.position.maxScrollExtent ==
-          scrollController.offset) {
-        if (charactersList.length == totalCharacters) {
-          hasMoreCharacters = false;
+    _scrollController.addListener(() {
+      if (_scrollController.position.maxScrollExtent ==
+          _scrollController.offset) {
+        if (_charactersList.length == _totalCharacters) {
+          _hasMoreCharacters = false;
         }
 
-        if (charactersList.length <= totalCharacters) {
-          CharacterRepository()
-              .fetchCharacters(offset)
+        if (_charactersList.length <= _totalCharacters) {
+          _charactersController
+              .fetchCharacters(_offset)
               .then((response) => setState(() {
-                    charactersList.addAll(response.requestdata.results);
-                    offset += 25;
+                    _charactersList.addAll(response.requestdata.results);
+                    _offset += 25;
                   }));
         }
       }
@@ -49,17 +51,18 @@ class _VerticalListViewState extends State<VerticalListView> {
 
   @override
   void dispose() {
-    scrollController.dispose();
+    _scrollController.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
-        controller: scrollController,
-        itemCount: charactersList.length + 1,
+        shrinkWrap: true,
+        controller: _scrollController,
+        itemCount: _charactersList.length + 1,
         itemBuilder: (context, index) {
-          if (index < charactersList.length) {
+          if (index < _charactersList.length) {
             return Card(
               elevation: 40,
               margin: const EdgeInsets.all(10.0),
@@ -77,7 +80,7 @@ class _VerticalListViewState extends State<VerticalListView> {
                         width: 150,
                         height: 150,
                         child: Image.network(
-                          "${charactersList[index].thumbnail.path}.${charactersList[index].thumbnail.extension}",
+                          "${_charactersList[index].thumbnail.path}.${_charactersList[index].thumbnail.extension}",
                           fit: BoxFit.fill,
                         ),
                       ),
@@ -95,32 +98,32 @@ class _VerticalListViewState extends State<VerticalListView> {
                               children: [
                                 Flexible(
                                   child: Text(
-                                    charactersList[index].name,
+                                    _charactersList[index].name,
                                     style: const TextStyle(
                                         fontWeight: FontWeight.bold,
                                         color: Colors.redAccent),
                                   ),
                                 ),
                                 Text(
-                                  "Quadrinhos: ${charactersList[index].comics.available.toString()}",
+                                  "Quadrinhos: ${_charactersList[index].comics.available.toString()}",
                                   style: const TextStyle(
                                       fontWeight: FontWeight.bold,
                                       color: Colors.white),
                                 ),
                                 Text(
-                                  "Séries: ${charactersList[index].series.available.toString()}",
+                                  "Séries: ${_charactersList[index].series.available.toString()}",
                                   style: const TextStyle(
                                       fontWeight: FontWeight.bold,
                                       color: Colors.white),
                                 ),
                                 Text(
-                                  "Histórias: ${charactersList[index].stories.available.toString()}",
+                                  "Histórias: ${_charactersList[index].stories.available.toString()}",
                                   style: const TextStyle(
                                       fontWeight: FontWeight.bold,
                                       color: Colors.white),
                                 ),
                                 Text(
-                                  "Eventos: ${charactersList[index].events.available.toString()}",
+                                  "Eventos: ${_charactersList[index].events.available.toString()}",
                                   style: const TextStyle(
                                       fontWeight: FontWeight.bold,
                                       color: Colors.white),
