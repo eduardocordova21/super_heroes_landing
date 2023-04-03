@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:super_heroes_landing/controllers/response_controller.dart';
-import '../configurations/colors.dart';
-import '../models/results.dart';
+import 'package:super_heroes_landing/widgets/vertical_list/vertical_list_text.dart';
+import '../../configurations/colors.dart';
+import '../../models/results.dart';
 
 class VerticalList extends StatefulWidget {
   List<Results> charactersList = [];
@@ -83,55 +84,7 @@ class _VerticalListState extends State<VerticalList> {
                       ),
                     ],
                   ),
-                  Column(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.only(left: 20.0),
-                        child: SizedBox(
-                          width: MediaQuery.of(context).size.width / 2,
-                          child: Flexible(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  widget.charactersList[index].name,
-                                  style: const TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.redAccent),
-                                  softWrap: true,
-                                  overflow: TextOverflow.ellipsis,
-                                ),
-                                Text(
-                                  "Quadrinhos: ${widget.charactersList[index].comics.available.toString()}",
-                                  style: const TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.white),
-                                ),
-                                Text(
-                                  "Séries: ${widget.charactersList[index].series.available.toString()}",
-                                  style: const TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.white),
-                                ),
-                                Text(
-                                  "Histórias: ${widget.charactersList[index].stories.available.toString()}",
-                                  style: const TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.white),
-                                ),
-                                Text(
-                                  "Eventos: ${widget.charactersList[index].events.available.toString()}",
-                                  style: const TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.white),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
+                  VerticalListText(character: widget.charactersList[index])
                 ],
               ),
             );
