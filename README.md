@@ -1,6 +1,5 @@
 <p align="center">
   <img src="https://media.tenor.com/GKdUbOPJ0-EAAAAC/superhero-landing-deadpool.gif" />
-  
 </p>
 
 # Super Heroes Landing
@@ -13,6 +12,10 @@ https://www.marvel.com/characters
 
 - Clonando o projeto
 - Executando a branche Main
+
+## Projeto sendo executado
+
+![](https://github.com/eduardocordova21/super_heroes_landing/blob/main/imagens/ios.png?raw=true)
 
 ## Libs utilizadas
 
@@ -28,3 +31,4 @@ https://www.marvel.com/characters
  ## Passos futuros
  
  - Criação da página de detalhes dos personagens
+ - Resolver o erro que ocorre quando colocamos imagens por cache no iOS
