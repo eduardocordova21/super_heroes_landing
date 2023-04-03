@@ -11,6 +11,7 @@ https://www.marvel.com/characters
 ## Por onde começar?
 
 - Clonando o projeto
+- pub get
 - Executando a branche Main
 
 ## Projeto sendo executado
