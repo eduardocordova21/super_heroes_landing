@@ -1,16 +1,30 @@
-# super_heroes_landing
+<p align="center">
+  <img src="https://media.tenor.com/GKdUbOPJ0-EAAAAC/superhero-landing-deadpool.gif" />
+  
+</p>
 
-A new Flutter project.
+# Super Heroes Landing
 
-## Getting Started
+Um projeto Flutter que utiliza a API da Marvel para fazer listagem dos seus personagens.
 
-This project is a starting point for a Flutter application.
+https://www.marvel.com/characters
 
-A few resources to get you started if this is your first Flutter project:
+## Por onde começar?
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+- Clonando o projeto
+- Executando a branche Main
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## Libs utilizadas
+
+- http: ^0.13.5
+  - Para realizar requisições para a API
+- crypto: ^3.0.2
+  - Para criar o HASH necessário de comunicação com a API
+  
+ ## Passos realizados
+ 
+ - [Link para o Projeto](https://github.com/eduardocordova21/super_heroes_landing/projects?query=is%3Aopen)
+ 
+ ## Passos futuros
+ 
+ - Criação da página de detalhes dos personagens
