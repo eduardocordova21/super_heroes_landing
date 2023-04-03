@@ -1,8 +1,8 @@
 class Urls {
-  String? type;
-  String? url;
+  late String type;
+  late String url;
 
-  Urls({this.type, this.url});
+  Urls(this.type, this.url);
 
   Urls.fromJson(Map<String, dynamic> json) {
     type = json['type'];

@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:super_heroes_landing/pages/home_page.dart';
+import 'package:super_heroes_landing/views/home_view.dart';
+
+import 'configurations/colors.dart';
+import 'configurations/routes.dart';
 
 void main() {
   runApp(const MyApp());
@@ -11,12 +14,15 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Super Hero Landing',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        fontFamily: "Quantico",
+        primarySwatch: primaryBlack,
       ),
-      home: const HomePage(),
+      initialRoute: NavigationRoute.home.name,
+      routes: {
+        NavigationRoute.home.name: (context) => const HomeView(),
+      },
     );
   }
 }

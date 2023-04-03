@@ -1,14 +1,14 @@
 class Items {
-  String? resourceURI;
-  String? name;
-  String? type;
+  late String resourceURI;
+  late String name;
+  late String type;
 
-  Items({this.resourceURI, this.name, this.type});
+  Items(this.resourceURI, this.name, this.type);
 
   Items.fromJson(Map<String, dynamic> json) {
     resourceURI = json['resourceURI'];
     name = json['name'];
-    type = json['type'];
+    type = json['type'] ?? '';
   }
 
   Map<String, dynamic> toJson() {

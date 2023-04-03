@@ -1,15 +1,15 @@
-import 'package:super_heroes_landing/models/character/results.dart';
+import 'package:super_heroes_landing/models/results.dart';
 
-class Data {
-  String? offset;
-  String? limit;
-  String? total;
-  String? count;
-  List<Results>? results;
+class ResponseData {
+  late int offset;
+  late int limit;
+  late int total;
+  late int count;
+  late List<Results> results;
 
-  Data({this.offset, this.limit, this.total, this.count, this.results});
+  ResponseData(this.offset, this.limit, this.total, this.count, this.results);
 
-  Data.fromJson(Map<String, dynamic> json) {
+  ResponseData.fromJson(Map<String, dynamic> json) {
     offset = json['offset'];
     limit = json['limit'];
     total = json['total'];
@@ -28,9 +28,7 @@ class Data {
     data['limit'] = limit;
     data['total'] = total;
     data['count'] = count;
-    if (results != null) {
-      data['results'] = results!.map((v) => v.toJson()).toList();
-    }
+    data['results'] = results!.map((v) => v.toJson()).toList();
     return data;
   }
 }
