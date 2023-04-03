@@ -21,6 +21,7 @@ class _CarouselState extends State<Carousel> {
   @override
   Widget build(BuildContext context) {
     return Column(
+      key: const Key('carousel'),
       children: [
         SizedBox(
           height: MediaQuery.of(context).size.height / 2.5,

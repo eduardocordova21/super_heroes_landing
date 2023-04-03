@@ -1,4 +1,3 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
 import '../../configurations/colors.dart';
@@ -27,13 +26,12 @@ class SliderCarousel extends StatelessWidget {
       child: Stack(
         fit: StackFit.expand,
         children: [
-          Image(
-            image: CachedNetworkImageProvider(
-                "${charactersList[index].thumbnail.path}.${charactersList[index].thumbnail.extension}"),
+          Image.network(
+            "${charactersList[index].thumbnail.path}.${charactersList[index].thumbnail.extension}",
             fit: BoxFit.fill,
           ),
           Positioned(
-            height: MediaQuery.of(context).size.height / 10,
+            height: MediaQuery.of(context).size.height / 9,
             right: 0,
             bottom: 0,
             child: Card(

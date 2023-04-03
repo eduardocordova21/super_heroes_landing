@@ -55,7 +55,8 @@ class _HomeViewState extends State<HomeView> {
 
           return Container(
             alignment: AlignmentDirectional.center,
-            child: const CircularProgressIndicator(),
+            child:
+                const CircularProgressIndicator(key: Key("circularProgress")),
           );
         },
       ),

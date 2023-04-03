@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:http/http.dart' as http;
 import 'package:super_heroes_landing/configurations/configuration.dart';
 import '../configurations/endpoints.dart';
@@ -18,11 +17,11 @@ class ResponseController {
 
     var responseObject = Response.fromJson(jsonDecode(apiResponse.body));
 
-    for (var character in responseObject.requestdata.results) {
-      CachedNetworkImage(
-          imageUrl:
-              "${character.thumbnail.path}.${character.thumbnail.extension}");
-    }
+    // for (var character in responseObject.requestdata.results) {
+    //   CachedNetworkImage(
+    //       imageUrl:
+    //           "${character.thumbnail.path}.${character.thumbnail.extension}");
+    // }
 
     return responseObject;
   }
