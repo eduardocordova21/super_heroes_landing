@@ -1,18 +1,17 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:super_heroes_landing/configurations/configuration.dart';
-import 'package:super_heroes_landing/models/results.dart';
 import '../configurations/endpoints.dart';
 import '../models/response.dart';
 
-class CharactersController {
+class ResponseController {
   late Configuration _configuration;
 
-  CharactersController() {
+  ResponseController() {
     _configuration = Configuration();
   }
 
-  Future<Response> fetchCharacters([int offset = 0]) async {
+  Future<Response> fetchResponse([int offset = 0]) async {
     final apiResponse =
         await http.get(_configuration.getUri(Endpoint.characters.name, offset));
 

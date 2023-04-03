@@ -1,47 +1,44 @@
 import 'package:flutter/material.dart';
-import 'package:super_heroes_landing/controllers/characters_controller.dart';
+import 'package:super_heroes_landing/controllers/response_controller.dart';
 import '../configurations/colors.dart';
 import '../models/results.dart';
 
 class VerticalList extends StatefulWidget {
-  const VerticalList({Key? key}) : super(key: key);
+  List<Results> charactersList = [];
+  int totalCharacters = 0;
+
+  VerticalList(
+      {Key? key, required this.charactersList, required this.totalCharacters})
+      : super(key: key);
 
   @override
   State<VerticalList> createState() => _VerticalListState();
 }
 
 class _VerticalListState extends State<VerticalList> {
-  final CharactersController _charactersController = CharactersController();
+  final ResponseController _responseController = ResponseController();
   final _scrollController = ScrollController();
-
-  late final List<Results> _charactersList = [];
-
   bool _hasMoreCharacters = true;
-  int _totalCharacters = 0;
   int _offset = 25;
 
   @override
   void initState() {
     super.initState();
 
-    _charactersController.fetchCharacters().then((response) => {
-          _charactersList.addAll(response.requestdata.results),
-          _charactersList.removeRange(0, 5),
-          _totalCharacters = response.requestdata.total
-        });
+    widget.charactersList.removeRange(0, 5);
 
     _scrollController.addListener(() {
       if (_scrollController.position.maxScrollExtent ==
           _scrollController.offset) {
-        if (_charactersList.length == _totalCharacters) {
+        if (widget.charactersList.length == widget.totalCharacters) {
           _hasMoreCharacters = false;
         }
 
-        if (_charactersList.length <= _totalCharacters) {
-          _charactersController
-              .fetchCharacters(_offset)
+        if (widget.charactersList.length <= widget.totalCharacters) {
+          _responseController
+              .fetchResponse(_offset)
               .then((response) => setState(() {
-                    _charactersList.addAll(response.requestdata.results);
+                    widget.charactersList.addAll(response.requestdata.results);
                     _offset += 25;
                   }));
         }
@@ -60,9 +57,9 @@ class _VerticalListState extends State<VerticalList> {
     return ListView.builder(
         shrinkWrap: true,
         controller: _scrollController,
-        itemCount: _charactersList.length + 1,
+        itemCount: widget.charactersList.length + 1,
         itemBuilder: (context, index) {
-          if (index < _charactersList.length) {
+          if (index < widget.charactersList.length) {
             return Card(
               elevation: 40,
               margin: const EdgeInsets.all(10.0),
@@ -77,10 +74,10 @@ class _VerticalListState extends State<VerticalList> {
                   Column(
                     children: [
                       SizedBox(
-                        width: 150,
-                        height: 150,
+                        width: MediaQuery.of(context).size.width / 3,
+                        height: MediaQuery.of(context).size.width / 3,
                         child: Image.network(
-                          "${_charactersList[index].thumbnail.path}.${_charactersList[index].thumbnail.extension}",
+                          "${widget.charactersList[index].thumbnail.path}.${widget.charactersList[index].thumbnail.extension}",
                           fit: BoxFit.fill,
                         ),
                       ),
@@ -89,48 +86,50 @@ class _VerticalListState extends State<VerticalList> {
                   Column(
                     children: [
                       Padding(
-                          padding: const EdgeInsets.all(20),
-                          child: SizedBox(
-                            height: 100,
+                        padding: const EdgeInsets.only(left: 20.0),
+                        child: SizedBox(
+                          width: MediaQuery.of(context).size.width / 2,
+                          child: Flexible(
                             child: Column(
-                              mainAxisAlignment: MainAxisAlignment.start,
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Flexible(
-                                  child: Text(
-                                    _charactersList[index].name,
-                                    style: const TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        color: Colors.redAccent),
-                                  ),
+                                Text(
+                                  widget.charactersList[index].name,
+                                  style: const TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.redAccent),
+                                  softWrap: true,
+                                  overflow: TextOverflow.ellipsis,
                                 ),
                                 Text(
-                                  "Quadrinhos: ${_charactersList[index].comics.available.toString()}",
+                                  "Quadrinhos: ${widget.charactersList[index].comics.available.toString()}",
                                   style: const TextStyle(
                                       fontWeight: FontWeight.bold,
                                       color: Colors.white),
                                 ),
                                 Text(
-                                  "Séries: ${_charactersList[index].series.available.toString()}",
+                                  "Séries: ${widget.charactersList[index].series.available.toString()}",
                                   style: const TextStyle(
                                       fontWeight: FontWeight.bold,
                                       color: Colors.white),
                                 ),
                                 Text(
-                                  "Histórias: ${_charactersList[index].stories.available.toString()}",
+                                  "Histórias: ${widget.charactersList[index].stories.available.toString()}",
                                   style: const TextStyle(
                                       fontWeight: FontWeight.bold,
                                       color: Colors.white),
                                 ),
                                 Text(
-                                  "Eventos: ${_charactersList[index].events.available.toString()}",
+                                  "Eventos: ${widget.charactersList[index].events.available.toString()}",
                                   style: const TextStyle(
                                       fontWeight: FontWeight.bold,
                                       color: Colors.white),
                                 ),
                               ],
                             ),
-                          )),
+                          ),
+                        ),
+                      ),
                     ],
                   ),
                 ],
