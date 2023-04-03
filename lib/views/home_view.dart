@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:super_heroes_landing/controllers/response_controller.dart';
 import 'package:super_heroes_landing/widgets/carousel/carousel.dart';
-import 'package:super_heroes_landing/widgets/vertical_list.dart';
+import 'package:super_heroes_landing/widgets/my_exception.dart';
+import 'package:super_heroes_landing/widgets/vertical_list/vertical_list.dart';
 
 import '../models/response.dart';
 
@@ -36,7 +37,10 @@ class _HomeViewState extends State<HomeView> {
           if (snapshot.hasData) {
             return Column(
               children: [
-                Carousel(charactersList: snapshot.data!.requestdata.results.getRange(0, 5).toList()),
+                Carousel(
+                    charactersList: snapshot.data!.requestdata.results
+                        .getRange(0, 5)
+                        .toList()),
                 Expanded(
                   child: VerticalList(
                       charactersList: snapshot.data!.requestdata.results,
@@ -45,13 +49,9 @@ class _HomeViewState extends State<HomeView> {
                 ),
               ],
             );
-          }
-
-          if (snapshot.hasError) {
-            AlertDialog(
-              title: const Text("Problema encontrado"),
-              content: Text(snapshot.error.toString()),
-            );
+          } else if (snapshot.hasError) {
+            return MyException(
+                snapshot: snapshot, contextWidgetToReload: context);
           }
 
           return Container(
