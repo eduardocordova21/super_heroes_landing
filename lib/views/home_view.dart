@@ -44,8 +44,7 @@ class _HomeViewState extends State<HomeView> {
                 Expanded(
                   child: VerticalList(
                       charactersList: snapshot.data!.requestdata.results,
-                      totalCharacters:
-                          snapshot.data!.requestdata.results.length),
+                      totalCharacters: snapshot.data!.requestdata.total),
                 ),
               ],
             );

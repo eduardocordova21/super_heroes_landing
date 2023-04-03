@@ -40,12 +40,10 @@ class SliderCarousel extends StatelessWidget {
               color: primaryBlack,
               child: Column(
                 children: [
-                  Flexible(
-                    child: Text(
-                      charactersList[index].name,
-                      style: const TextStyle(
-                          fontWeight: FontWeight.bold, color: Colors.redAccent),
-                    ),
+                  Text(
+                    charactersList[index].name,
+                    style: const TextStyle(
+                        fontWeight: FontWeight.bold, color: Colors.redAccent),
                   ),
                   Text(
                     "Quadrinhos: ${charactersList[index].comics.available.toString()} - Séries: ${charactersList[index].series.available.toString()}",
