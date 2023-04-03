@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:super_heroes_landing/controllers/response_controller.dart';
 import 'package:super_heroes_landing/widgets/vertical_list/vertical_list_text.dart';
@@ -77,8 +78,9 @@ class _VerticalListState extends State<VerticalList> {
                       SizedBox(
                         width: MediaQuery.of(context).size.width / 3,
                         height: MediaQuery.of(context).size.width / 3,
-                        child: Image.network(
-                          "${widget.charactersList[index].thumbnail.path}.${widget.charactersList[index].thumbnail.extension}",
+                        child: Image(
+                          image: CachedNetworkImageProvider(
+                              "${widget.charactersList[index].thumbnail.path}.${widget.charactersList[index].thumbnail.extension}"),
                           fit: BoxFit.fill,
                         ),
                       ),
