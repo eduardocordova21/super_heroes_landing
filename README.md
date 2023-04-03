@@ -16,6 +16,7 @@ https://www.marvel.com/characters
 ## Projeto sendo executado
 
 ![](https://github.com/eduardocordova21/super_heroes_landing/blob/main/imagens/ios.png?raw=true)
+![](https://github.com/eduardocordova21/super_heroes_landing/blob/main/imagens/android.png?raw=true)
 
 ## Libs utilizadas
 
