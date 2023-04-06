@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:super_heroes_landing/views/details_view.dart';
 import 'package:super_heroes_landing/views/home_view.dart';
 
 import 'configurations/colors.dart';
@@ -22,6 +23,7 @@ class MyApp extends StatelessWidget {
       initialRoute: NavigationRoute.home.name,
       routes: {
         NavigationRoute.home.name: (context) => const HomeView(),
+        NavigationRoute.details.name: (context) =>  const DetailsView(),
       },
     );
   }
