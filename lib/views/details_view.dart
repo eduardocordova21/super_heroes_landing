@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
 import '../configurations/colors.dart';
@@ -25,9 +26,12 @@ class DetailsView extends StatelessWidget {
               width: MediaQuery.of(context).size.width,
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(40.0),
-                child: Image.network(
-                  "${character.thumbnail.path}.${character.thumbnail.extension}",
+                child: CachedNetworkImage(
+                  imageUrl:
+                      "${character.thumbnail.path}.${character.thumbnail.extension}",
                   fit: BoxFit.fill,
+                  placeholder: (context, url) =>
+                      const CircularProgressIndicator(),
                 ),
               ),
             ),
@@ -40,7 +44,7 @@ class DetailsView extends StatelessWidget {
                 softWrap: true,
                 textAlign: TextAlign.justify,
               ),
-            )
+            ),
           ],
         ),
       ),

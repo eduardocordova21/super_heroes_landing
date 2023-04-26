@@ -33,7 +33,7 @@ class Configuration {
     return params;
   }
 
-  Uri getUri(String endpoint, int offset) {
+  Uri getUri(String endpoint, [int offset = 0]) {
     return Uri.https(_apiDomain, _apiPath + endpoint, _getQueryParameters(offset));
   }
 }

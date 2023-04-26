@@ -1,5 +1,6 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:super_heroes_landing/controllers/response_controller.dart';
+import 'package:super_heroes_landing/controllers/characters_controller.dart';
 import 'package:super_heroes_landing/widgets/vertical_list/vertical_list_text.dart';
 import '../../configurations/colors.dart';
 import '../../configurations/routes.dart';
@@ -18,7 +19,7 @@ class VerticalList extends StatefulWidget {
 }
 
 class _VerticalListState extends State<VerticalList> {
-  final ResponseController _responseController = ResponseController();
+  final CharactersController _responseController = CharactersController();
   final _scrollController = ScrollController();
   bool _hasMoreCharacters = true;
   int _offset = 25;
@@ -38,7 +39,7 @@ class _VerticalListState extends State<VerticalList> {
 
         if (widget.charactersList.length <= widget.totalCharacters) {
           _responseController
-              .fetchResponse(_offset)
+              .getCharacters(_offset)
               .then((response) => setState(() {
                     widget.charactersList.addAll(response.requestdata.results);
                     _offset += 25;
@@ -63,7 +64,9 @@ class _VerticalListState extends State<VerticalList> {
         itemBuilder: (context, index) {
           if (index < widget.charactersList.length) {
             return GestureDetector(
-              onTap: () => Navigator.pushNamed(context, NavigationRoute.details.name, arguments: widget.charactersList[index]),
+              onTap: () => Navigator.pushNamed(
+                  context, NavigationRoute.details.name,
+                  arguments: widget.charactersList[index]),
               child: Card(
                 elevation: 40,
                 margin: const EdgeInsets.all(10.0),
@@ -80,9 +83,12 @@ class _VerticalListState extends State<VerticalList> {
                         SizedBox(
                           width: MediaQuery.of(context).size.width / 3,
                           height: MediaQuery.of(context).size.width / 3,
-                          child: Image.network(
-                            "${widget.charactersList[index].thumbnail.path}.${widget.charactersList[index].thumbnail.extension}",
+                          child: CachedNetworkImage(
+                            imageUrl:
+                                "${widget.charactersList[index].thumbnail.path}.${widget.charactersList[index].thumbnail.extension}",
                             fit: BoxFit.fill,
+                            placeholder: (context, url) =>
+                                const CircularProgressIndicator(),
                           ),
                         ),
                       ],
