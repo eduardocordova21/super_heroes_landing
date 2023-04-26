@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:super_heroes_landing/controllers/response_controller.dart';
+import 'package:super_heroes_landing/controllers/characters_controller.dart';
 import 'package:super_heroes_landing/widgets/carousel/carousel.dart';
 import 'package:super_heroes_landing/widgets/my_exception.dart';
 import 'package:super_heroes_landing/widgets/vertical_list/vertical_list.dart';
@@ -14,14 +14,14 @@ class HomeView extends StatefulWidget {
 }
 
 class _HomeViewState extends State<HomeView> {
-  final ResponseController _responseController = ResponseController();
+  final CharactersController _responseController = CharactersController();
 
   late Future<Response> _apiResponse;
 
   @override
   void initState() {
     super.initState();
-    _apiResponse = _responseController.fetchResponse();
+    _apiResponse = _responseController.getCharacters();
   }
 
   @override
