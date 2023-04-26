@@ -1,7 +1,9 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:super_heroes_landing/controllers/response_controller.dart';
+import 'package:super_heroes_landing/controllers/characters_controller.dart';
 import 'package:super_heroes_landing/widgets/vertical_list/vertical_list_text.dart';
 import '../../configurations/colors.dart';
+import '../../configurations/routes.dart';
 import '../../models/results.dart';
 
 class VerticalList extends StatefulWidget {
@@ -17,7 +19,7 @@ class VerticalList extends StatefulWidget {
 }
 
 class _VerticalListState extends State<VerticalList> {
-  final ResponseController _responseController = ResponseController();
+  final CharactersController _responseController = CharactersController();
   final _scrollController = ScrollController();
   bool _hasMoreCharacters = true;
   int _offset = 25;
@@ -37,7 +39,7 @@ class _VerticalListState extends State<VerticalList> {
 
         if (widget.charactersList.length <= widget.totalCharacters) {
           _responseController
-              .fetchResponse(_offset)
+              .getCharacters(_offset)
               .then((response) => setState(() {
                     widget.charactersList.addAll(response.requestdata.results);
                     _offset += 25;
@@ -61,31 +63,39 @@ class _VerticalListState extends State<VerticalList> {
         itemCount: widget.charactersList.length + 1,
         itemBuilder: (context, index) {
           if (index < widget.charactersList.length) {
-            return Card(
-              elevation: 40,
-              margin: const EdgeInsets.all(10.0),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(10.0),
-              ),
-              color: primaryBlack,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Column(
-                    children: [
-                      SizedBox(
-                        width: MediaQuery.of(context).size.width / 3,
-                        height: MediaQuery.of(context).size.width / 3,
-                        child: Image.network(
-                          "${widget.charactersList[index].thumbnail.path}.${widget.charactersList[index].thumbnail.extension}",
-                          fit: BoxFit.fill,
+            return GestureDetector(
+              onTap: () => Navigator.pushNamed(
+                  context, NavigationRoute.details.name,
+                  arguments: widget.charactersList[index]),
+              child: Card(
+                elevation: 40,
+                margin: const EdgeInsets.all(10.0),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10.0),
+                ),
+                color: primaryBlack,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Column(
+                      children: [
+                        SizedBox(
+                          width: MediaQuery.of(context).size.width / 3,
+                          height: MediaQuery.of(context).size.width / 3,
+                          child: CachedNetworkImage(
+                            imageUrl:
+                                "${widget.charactersList[index].thumbnail.path}.${widget.charactersList[index].thumbnail.extension}",
+                            fit: BoxFit.fill,
+                            placeholder: (context, url) =>
+                                const CircularProgressIndicator(),
+                          ),
                         ),
-                      ),
-                    ],
-                  ),
-                  VerticalListText(character: widget.charactersList[index])
-                ],
+                      ],
+                    ),
+                    VerticalListText(character: widget.charactersList[index])
+                  ],
+                ),
               ),
             );
           } else {
